@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "queuectl"
+version = "0.1.0"
+description = "Production-grade local job queue CLI"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.7"
+]
+
+[project.scripts]
+queuectl = "queuectl.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
