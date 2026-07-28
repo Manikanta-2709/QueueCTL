@@ -3,13 +3,9 @@ services:
     name: queuectl-worker
     env: python
     buildCommand: "pip install -r requirements.txt && pip install -e ."
-    startCommand: "python -m queuectl.cli.main worker start --count 3"
+    startCommand: "python -m queuectl.cli.main worker run"
     envVars:
       - key: QUEUECTL_DB_PATH
-        value: /var/data/queue.db
+        value: /tmp/queuectl/queue.db
       - key: QUEUECTL_LOG_DIR
-        value: /var/data/logs
-    disk:
-      name: queuectl-db-data
-      mountPath: /var/data
-      sizeGB: 1
+        value: /tmp/queuectl/logs

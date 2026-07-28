@@ -1,4 +1,3 @@
-# Syntax=docker/dockerfile:1
 FROM python:3.12-slim
 
 # Set working directory
@@ -30,5 +29,5 @@ ENV QUEUECTL_PID_FILE=/app/data/workers.pid
 # Create data volume directory
 RUN mkdir -p /app/data
 
-# Default entrypoint starts 3 background workers
-CMD ["python", "-m", "queuectl.cli.main", "worker", "start", "--count", "3"]
+# Default entrypoint runs worker process continuously in foreground
+CMD ["python", "-m", "queuectl.cli.main", "worker", "run"]
