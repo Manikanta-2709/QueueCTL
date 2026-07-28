@@ -484,12 +484,12 @@ tbody tr { animation: fadeIn .25s ease both; }
 // ── config ────────────────────────────────────────────────────────────────────
 const REFRESH_SEC = 5;
 const STATE_META = {
-  all:     { label: 'All',     color: '#818cf8', glow: 'rgba(129,140,248,.35)' },
-  pending: { label: 'Pending', color: '#f59e0b', glow: 'rgba(245,158,11,.35)'  },
-  running: { label: 'Running', color: '#3b82f6', glow: 'rgba(59,130,246,.35)'  },
-  done:    { label: 'Done',    color: '#10b981', glow: 'rgba(16,185,129,.35)'  },
-  failed:  { label: 'Failed',  color: '#ef4444', glow: 'rgba(239,68,68,.35)'   },
-  dead:    { label: 'Dead',    color: '#8b5cf6', glow: 'rgba(139,92,246,.35)'  },
+  all:        { label: 'All',        color: '#818cf8', glow: 'rgba(129,140,248,.35)' },
+  pending:    { label: 'Pending',    color: '#f59e0b', glow: 'rgba(245,158,11,.35)'  },
+  processing: { label: 'Processing', color: '#3b82f6', glow: 'rgba(59,130,246,.35)'  },
+  completed:  { label: 'Completed',  color: '#10b981', glow: 'rgba(16,185,129,.35)'  },
+  failed:     { label: 'Failed',     color: '#ef4444', glow: 'rgba(239,68,68,.35)'   },
+  dead:       { label: 'Dead',       color: '#8b5cf6', glow: 'rgba(139,92,246,.35)'  },
 };
 
 // ── state ─────────────────────────────────────────────────────────────────────
@@ -551,7 +551,7 @@ async function fetchData(manual = false) {
 // ── render stats ──────────────────────────────────────────────────────────────
 function renderStats(counts) {
   statsEl.innerHTML = '';
-  const order = ['total','pending','running','done','failed','dead'];
+  const order = ['total','pending','processing','completed','failed','dead'];
   order.forEach(key => {
     const meta  = STATE_META[key] || STATE_META.all;
     const val   = counts[key] ?? 0;
