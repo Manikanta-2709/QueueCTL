@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt"
+
+[deploy]
+startCommand = "python server.py"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[variables]
+QUEUECTL_DB_PATH = "/tmp/queuectl/queue.db"
+QUEUECTL_LOG_DIR = "/tmp/queuectl/logs"
