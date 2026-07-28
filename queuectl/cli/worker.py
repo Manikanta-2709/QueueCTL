@@ -41,12 +41,23 @@ def worker_stop_cmd():
         click.echo("No running worker pool process found.")
 
 
+import signal
+
 @worker_group.command(name="run")
 @click.option("--worker-id", default=None, type=str, help="Custom ID for this worker process.")
 def worker_run_cmd(worker_id: str | None):
     """Runs a single worker process in the foreground (ideal for Docker & Cloud containers)."""
     from queuectl.core.worker import Worker
     worker = Worker(worker_id=worker_id)
+
+    def _handle_signal(signum, frame):
+        logger.info(f"Worker '{worker.worker_id}' received signal {signum}. Initiating graceful exit...")
+        worker.stop_requested = True
+
+    signal.signal(signal.SIGINT, _handle_signal)
+    signal.signal(signal.SIGTERM, _handle_signal)
+
     click.echo(f"Starting worker process '{worker.worker_id}' in foreground...")
     worker.run_forever()
+
 
